@@ -1,5 +1,5 @@
 # pooo1
-Sistema para un policonsultorio.
+## Sistema para un policonsultorio.
 Se debe implementar un sistema para un policonsultorio. Cada vez que se atiende a
 paciente nuevo se completa un formulario de información del paciente donde se solicita
 sus nombres, apellidos, dirección, fecha de nacimiento, número de teléfono e historial

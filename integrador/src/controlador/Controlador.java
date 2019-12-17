@@ -61,8 +61,10 @@ public class Controlador {
     
     public List listarPacientes() {
         // retorno valores ordenados de la consulta
-        return this.persistencia.buscarTodos(Paciente.class);
-        //return this.persistencia.buscarTodosOrdenadosPor(Paciente.class, Paciente_.apellido);
+        ArrayList<Paciente> listaResultante= new ArrayList<>(this.persistencia.buscarTodos(Paciente.class));
+        listaResultante.sort(Comparator.comparing(Paciente::getDni));
+        
+        return listaResultante;
     }
     
     public Persona buscarPaciente(Long id) {
@@ -125,7 +127,10 @@ public class Controlador {
     
     public List listarDoctores() {
         // retorno valores ordenados de la consulta
-        return this.persistencia.buscarTodos(Medico.class);
+        ArrayList<Medico> listaResultante= new ArrayList<>(this.persistencia.buscarTodos(Medico.class));
+        listaResultante.sort(Comparator.comparing(Medico::getApellidos));
+        
+        return listaResultante;
     }
     
     public List listarDoctoresEspecialidad(Especialidad e) {
@@ -133,18 +138,21 @@ public class Controlador {
         List<Medico> lista = new ArrayList<>(this.persistencia.buscarTodos(Medico.class));
         List<Medico> listaResultante = new ArrayList<>();
         List<Especialidad> aux = new ArrayList<>();
-        int contar=0;
+        
         for(int i=0;i<lista.size();i++){
+        int contar=1;
+        //el medico tiene una lista de especialidades. lo guardo en aux
             aux = lista.get(i).getEspecialidad();
-            //busco si tengo la especialidad que le paso.
+        //busco si tengo la especialidad que le paso.
             for(int j=0; j<aux.size();j++){
-                //si la especialidad es distinta a la del parametro sumo
+        //si la especialidad es distinta a la del parametro sumo
                 if(aux.get(j) != e){
                     contar++;
                 } else {
                     contar=0;
                 }
             }
+            
             if (contar > 0){
                 listaResultante.add(lista.get(i));
             }
@@ -233,14 +241,13 @@ public class Controlador {
         return 0;
     }
     
-    public int eliminarEspecialidadDoctor(Especialidad e, Medico m) {
+    public void eliminarEspecialidadDoctor(Especialidad e, Medico m) {
         this.persistencia.iniciarTransaccion();
-        this.persistencia.eliminar(e);
-        this.persistencia.confirmarTransaccion();
-    //hago abajo por si sale error
         e.quitarMedico(m);
         m.quitarEspecialidad(e);
-        return 0;
+        this.persistencia.modificar(e);
+        this.persistencia.modificar(m);
+        this.persistencia.confirmarTransaccion();
     }
     
     public void agregarHistoria(Paciente p, Date fecha, String descripcion, Medico m) {
@@ -320,7 +327,7 @@ public class Controlador {
                 //break;
             }
         }
-        
+        listaResultante.sort(Comparator.comparing(Cita::getHoraComienzo));
         
         return listaResultante.toArray();
         

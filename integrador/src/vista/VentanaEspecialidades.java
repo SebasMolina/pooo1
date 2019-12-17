@@ -166,8 +166,8 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
             Especialidad e = (Especialidad) comboEspecialidades.getSelectedItem();
             Medico m = (Medico) listaEspecialidades.getSelectedValue();
             int eleccion = JOptionPane.showConfirmDialog(rootPane, 
-                    "Desea eliminar a este Doctor?",
-                    "Eliminar Doctor de Especialidad",
+                    "Desea quitar a este Doctor?",
+                    "Quitar Doctor de Especialidad",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE);
                 if (eleccion == JOptionPane.YES_OPTION){
@@ -189,7 +189,7 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
             if (eleccion == JOptionPane.YES_OPTION){
-                int i = this.controlador.eliminarEspecialidades(e);
+                this.controlador.eliminarEspecialidades(e);
                 limpiar();
             }
             
@@ -202,14 +202,14 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
 
     private void btnAgregarDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDoctorActionPerformed
         // TODO add your handling code here:
-        
         Especialidad e = (Especialidad) comboEspecialidades.getSelectedItem();
         if (e != null){
             //pop-up para seleccionar un doctor.
             Medico input = (Medico) JOptionPane.showInputDialog(null,"Elija un doctor: ",
                     "Agregar doctor a Especialidad",JOptionPane.QUESTION_MESSAGE, null,
                     this.controlador.listarDoctoresEspecialidad(e).toArray(),
-                    this.controlador.listarDoctoresEspecialidad(e).toArray()[0]);
+                    null);
+            //this.controlador.listarDoctoresEspecialidad(e).toArray()[0]
             if (input != null)
                 this.controlador.agregarEspecialidadesDoctor(e, input);
         } else {

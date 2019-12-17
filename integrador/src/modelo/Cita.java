@@ -99,16 +99,18 @@ public class Cita {
     @Override
     public String toString() {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("HH:mm");
-        String ok, aux;
-    /*  
-        if(this.asistencia) {ok = "asistencia ✓";}
-        else                {ok = "asistencia ×";}
-    */
-        if(this.disponible) {aux = "disponible: SI " ;}
-        else                {aux = "disponible: NO"    ;}
-        return  aux + " " + /* ok + */" horario |" +
+        String asist;
+        
+        if(this.asistencia) {asist = "asistencia ✓";}
+        else                {asist = "asistencia ×";}
+    
+        
+        return  "horario |" +
                 formatoFecha.format(horaComienzo) + "-" + 
-                formatoFecha.format(horaTermina) + "| ";
+                formatoFecha.format(horaTermina) + "| " +
+                 " " +  asist;
     }
+    
+    
     
 }

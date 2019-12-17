@@ -6,7 +6,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import modelo.Medico;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-12-17T11:22:35")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-12-17T16:11:02")
 @StaticMetamodel(Especialidad.class)
 public class Especialidad_ { 
 
