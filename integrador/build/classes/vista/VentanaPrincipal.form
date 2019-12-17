@@ -64,7 +64,7 @@
                       <Component id="btn_doctores" alignment="1" max="32767" attributes="0"/>
                       <Component id="btn_especialidades" alignment="1" max="32767" attributes="0"/>
                       <Component id="btn_historias" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btn_citas" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btn_recordatorio" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -84,7 +84,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btn_historias" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btn_citas" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn_recordatorio" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="72" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -93,7 +93,7 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btn_doctores">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Doctores"/>
+            <Property name="text" type="java.lang.String" value="ABM Doctores"/>
             <Property name="toolTipText" type="java.lang.String" value="abm de doctores"/>
           </Properties>
           <Events>
@@ -102,7 +102,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btn_pacientes">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Pacientes"/>
+            <Property name="text" type="java.lang.String" value="ABM Pacientes"/>
             <Property name="toolTipText" type="java.lang.String" value="abm de pacientes"/>
           </Properties>
           <Events>
@@ -136,13 +136,13 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_historiasActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btn_citas">
+        <Component class="javax.swing.JButton" name="btn_recordatorio">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Citas"/>
+            <Property name="text" type="java.lang.String" value="Recordatorio Citas"/>
             <Property name="toolTipText" type="java.lang.String" value="mensaje de la cita futura"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_citasActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_recordatorioActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

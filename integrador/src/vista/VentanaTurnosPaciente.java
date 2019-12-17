@@ -48,6 +48,13 @@ public class VentanaTurnosPaciente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lista de turnos");
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -162,12 +169,17 @@ public class VentanaTurnosPaciente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_listaTurnosMouseClicked
 
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        
+        limpiar();
+    }//GEN-LAST:event_formWindowGainedFocus
+
     /**
      * @param args the command line arguments
      */
     
     private void limpiar(){
-        this.lblPaciente.setText(this.lblPaciente.getText()+" "+this.p.getApellidos()+" "+this.p.getNombres());
+        this.lblPaciente.setText("Paciente: "+this.p.getApellidos()+" "+this.p.getNombres());
         this.listaTurnos.setSelectedIndex(-1);
         this.listaTurnos.setListData(this.controlador.listarTurnos(p));
         this.btnConfirmar.setEnabled(false);

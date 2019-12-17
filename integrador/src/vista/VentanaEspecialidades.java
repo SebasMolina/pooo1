@@ -52,14 +52,14 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
             }
         });
 
-        btnEliminarDoctor.setText("Eliminar");
+        btnEliminarDoctor.setText("Quitar Doctor");
         btnEliminarDoctor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarDoctorActionPerformed(evt);
             }
         });
 
-        btnAgregarEspecialidad.setText("Agregar");
+        btnAgregarEspecialidad.setText("Agregar Especialidad");
         btnAgregarEspecialidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarEspecialidadActionPerformed(evt);
@@ -75,7 +75,7 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
             }
         });
 
-        btnEliminarEspecialidad.setText("Eliminar");
+        btnEliminarEspecialidad.setText("Quitar Especialidad");
         btnEliminarEspecialidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarEspecialidadActionPerformed(evt);
@@ -208,9 +208,10 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
             //pop-up para seleccionar un doctor.
             Medico input = (Medico) JOptionPane.showInputDialog(null,"Elija un doctor: ",
                     "Agregar doctor a Especialidad",JOptionPane.QUESTION_MESSAGE, null,
-                    this.controlador.listarDoctores().toArray(),
-                    this.controlador.listarDoctores().toArray()[0]);
-            this.controlador.agregarEspecialidadesDoctor(e, input);
+                    this.controlador.listarDoctoresEspecialidad(e).toArray(),
+                    this.controlador.listarDoctoresEspecialidad(e).toArray()[0]);
+            if (input != null)
+                this.controlador.agregarEspecialidadesDoctor(e, input);
         } else {
             JOptionPane.showMessageDialog(rootPane, 
                     "Debe seleccionar una especialidad",

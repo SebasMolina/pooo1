@@ -47,6 +47,23 @@ public class VentanaTurnos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Turnos");
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
+        addWindowStateListener(new java.awt.event.WindowStateListener() {
+            public void windowStateChanged(java.awt.event.WindowEvent evt) {
+                formWindowStateChanged(evt);
+            }
+        });
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -70,10 +87,20 @@ public class VentanaTurnos extends javax.swing.JFrame {
 
         lblEspecialidad.setText("Seleccione una especialidad:");
 
+        listaTurnos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                listaTurnosFocusGained(evt);
+            }
+        });
         jScrollPane1.setViewportView(listaTurnos);
 
         dateSeleccion.setToolTipText("seleccionar la fecha que desea");
         dateSeleccion.setName(""); // NOI18N
+        dateSeleccion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                dateSeleccionMouseEntered(evt);
+            }
+        });
 
         comboDoctores.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -109,22 +136,19 @@ public class VentanaTurnos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dateSeleccion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblEspecialidad)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                        .addComponent(btnSeleccionarFecha))
+                    .addComponent(comboEspecialidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboDoctores, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnSeleccionarTurno)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblDoctores)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnSeleccionarFecha))
-                                    .addComponent(dateSeleccion, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-                                    .addComponent(lblEspecialidad, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comboEspecialidad, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(comboDoctores, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 35, Short.MAX_VALUE)))
+                        .addComponent(lblDoctores)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnSeleccionarTurno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCrear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -132,25 +156,25 @@ public class VentanaTurnos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTitulo)
+                .addGap(13, 13, 13)
+                .addComponent(dateSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblEspecialidad)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSeleccionarFecha)
+                    .addComponent(lblEspecialidad))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(comboEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDoctores)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboDoctores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(btnCrear)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dateSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCrear)
-                    .addComponent(btnSeleccionarFecha))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnSeleccionarTurno)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -186,7 +210,7 @@ public class VentanaTurnos extends javax.swing.JFrame {
         // TODO add your handling code here:
         Medico m = (Medico) comboDoctores.getSelectedItem();
         if (m!=null){
-            btnSeleccionarTurno.setEnabled(true);
+            habilitarBotonSeleccionarTurno();
             this.cita.setMedico(m);
             verTurnosDoctor(m);
         } else {
@@ -200,34 +224,54 @@ public class VentanaTurnos extends javax.swing.JFrame {
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
+        deshabilitarBotonCrear();
         Medico m = (Medico)comboDoctores.getSelectedItem();
         if(comboEspecialidad.getSelectedIndex()!=-1 && comboDoctores.getSelectedIndex()!=-1){
             crearTurnos();
-            btnSeleccionarTurno.setEnabled(true);
-            verTurnosDoctor(m);
         }
-        
+        visualizarTurnos();
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnSeleccionarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarFechaActionPerformed
         // TODO add your handling code here:
+        deshabilitarBotonSeleccionar();
         Especialidad e = (Especialidad) comboEspecialidad.getSelectedItem();
         mostrarDoctor();
         if (e!=null){
             verTurnosDia(dateSeleccion.getDatoFecha());
             deshabilitarBotonCrear();
+            
         }   
     }//GEN-LAST:event_btnSeleccionarFechaActionPerformed
 
-    private void limpiar(){
-        DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel(this.controlador.listarEspecialidades().toArray());
-        this.comboEspecialidad.setModel(modeloCombo);
-        this.comboEspecialidad.setSelectedIndex(-1);
-        this.comboDoctores.setSelectedIndex(-1);
-        this.dateSeleccion.setFormatoFecha("dd/MM/yyyy");
-        this.dateSeleccion.setDatoFecha(new Date());
-        btnSeleccionarTurno.setEnabled(false);
-    }
+    private void dateSeleccionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateSeleccionMouseEntered
+        System.out.println("anda o no entro");
+        habilitarBotonSeleccionar();
+        deshabilitarBotonCrear();
+    }//GEN-LAST:event_dateSeleccionMouseEntered
+
+    private void listaTurnosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_listaTurnosFocusGained
+        // TODO add your handling code here:
+        visualizarTurnos();
+    }//GEN-LAST:event_listaTurnosFocusGained
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        visualizarTurnos();
+        System.out.println("focus gained");
+    }//GEN-LAST:event_formFocusGained
+
+    private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
+        visualizarTurnos();
+        System.out.println("focus formwindowschanged");
+    }//GEN-LAST:event_formWindowStateChanged
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+        visualizarTurnos();
+        System.out.println("focus formwindowsgainedfocus");
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    
     
     public void mostrarDoctor(){
         Especialidad e = (Especialidad) comboEspecialidad.getSelectedItem();
@@ -239,28 +283,19 @@ public class VentanaTurnos extends javax.swing.JFrame {
         
     }
 
-    private void deshabilitarBotonCrear(){
-        this.btnCrear.setEnabled(false);
-    }
-    
-    private void cerrar(){
-        this.previo.setVisible(true);
-        this.dispose();
-    }
-        
     private void verTurnosDia(Date d){
         //TURNOS POR DIA NO IMPORTA DOCTOR
         this.listaTurnosDia= this.controlador.listarTurnos(d);
-        //guardo en el 
-        this.listaTurnos.setListData(this.listaTurnosDia);
+        //no muestro las citas
+//        this.listaTurnos.setListData(this.listaTurnosDia);
     }
     
     private void verTurnosDoctor(Medico m){
         Object[] aux = this.controlador.listarTurnos(m, this.listaTurnosDia);
         this.listaTurnos.setListData(aux);
         if (aux.length==0){
-            this.btnCrear.setEnabled(true);
-            this.btnSeleccionarTurno.setEnabled(false); //no hay turnos no esta habilitado
+            comparacionFecha();
+            deshabilitarBotonSeleccionarTurno();
         }
         
     }
@@ -304,4 +339,60 @@ public class VentanaTurnos extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JList listaTurnos;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiar(){
+        DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel(this.controlador.listarEspecialidades().toArray());
+        this.comboEspecialidad.setModel(modeloCombo);
+        this.comboEspecialidad.setSelectedIndex(-1);
+        this.comboDoctores.setSelectedIndex(-1);
+        this.dateSeleccion.setFormatoFecha("dd/MM/yyyy");
+        this.dateSeleccion.setDatoFecha(new Date());
+        deshabilitarBotonSeleccionarTurno();
+        comparacionFecha();
+        
+    }
+    
+    private void comparacionFecha() {
+        if (this.dateSeleccion.getDatoFecha().getDate() <= (new Date().getDate())){
+            deshabilitarBotonCrear();
+        } else {
+            habilitarBotonCrear();
+        }
+    }
+        
+    private void habilitarBotonSeleccionar(){
+        this.btnSeleccionarFecha.setEnabled(true);
+    }
+    
+    private void deshabilitarBotonSeleccionar(){
+        this.btnSeleccionarFecha.setEnabled(false);
+    }
+    
+    private void habilitarBotonCrear(){
+        this.btnCrear.setEnabled(true);
+    }
+    
+    private void deshabilitarBotonCrear(){
+        this.btnCrear.setEnabled(false);
+    }
+    
+    private void cerrar(){
+        this.previo.setVisible(true);
+        this.dispose();
+    }
+    
+    private void deshabilitarBotonSeleccionarTurno(){
+        this.btnSeleccionarTurno.setEnabled(false);
+    }
+    
+    private void habilitarBotonSeleccionarTurno(){
+        this.btnSeleccionarTurno.setEnabled(true);
+    }
+
+    public void visualizarTurnos() {
+        Medico m = (Medico)comboDoctores.getSelectedItem();
+        habilitarBotonSeleccionarTurno();
+        verTurnosDia(dateSeleccion.getDatoFecha());
+        verTurnosDoctor(m);
+    }
 }

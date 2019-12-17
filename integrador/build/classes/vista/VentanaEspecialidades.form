@@ -83,7 +83,7 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="btnEliminarDoctor">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Eliminar"/>
+        <Property name="text" type="java.lang.String" value="Quitar Doctor"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarDoctorActionPerformed"/>
@@ -91,7 +91,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnAgregarEspecialidad">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Agregar"/>
+        <Property name="text" type="java.lang.String" value="Agregar Especialidad"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarEspecialidadActionPerformed"/>
@@ -118,7 +118,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnEliminarEspecialidad">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Eliminar"/>
+        <Property name="text" type="java.lang.String" value="Quitar Especialidad"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarEspecialidadActionPerformed"/>

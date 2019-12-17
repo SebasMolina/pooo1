@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import modelo.Cita;
 import modelo.Historia;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-08-27T20:19:02")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-12-17T11:22:35")
 @StaticMetamodel(Paciente.class)
 public class Paciente_ extends Persona_ {
 

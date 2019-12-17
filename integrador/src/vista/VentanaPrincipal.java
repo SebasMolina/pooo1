@@ -7,6 +7,7 @@ package vista;
 
 import controlador.Controlador;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -48,7 +49,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btn_doctores.setText("Doctores");
+        btn_doctores.setText("ABM Doctores");
         btn_doctores.setToolTipText("abm de doctores");
         btn_doctores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,7 +57,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btn_pacientes.setText("Pacientes");
+        btn_pacientes.setText("ABM Pacientes");
         btn_pacientes.setToolTipText("abm de pacientes");
         btn_pacientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,7 +197,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        cerrar();
+            cerrar(evt);
     }//GEN-LAST:event_formWindowClosing
 
     private void btn_recordatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_recordatorioActionPerformed
@@ -209,8 +210,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_recordatorioActionPerformed
     
-    public void cerrar() {
-        /*
+    public void cerrar(java.awt.event.WindowEvent evt) {
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         int eleccion = JOptionPane.showConfirmDialog(rootPane, 
                 "En realidad desea realizar cerrar la aplicacion",
                 "Mensaje de Confirmacion",
@@ -218,8 +219,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 JOptionPane.QUESTION_MESSAGE);
         if (eleccion == JOptionPane.YES_OPTION){
             this.dispose();
+        } 
+        if (eleccion == JOptionPane.NO_OPTION){
+            this.setVisible(true);
         }
-        */
+        
     }
 
     
@@ -233,4 +237,5 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
+    
 }

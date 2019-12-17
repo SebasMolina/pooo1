@@ -9,6 +9,8 @@ import dao.Persistencia;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import modelo.*;
@@ -124,6 +126,31 @@ public class Controlador {
     public List listarDoctores() {
         // retorno valores ordenados de la consulta
         return this.persistencia.buscarTodos(Medico.class);
+    }
+    
+    public List listarDoctoresEspecialidad(Especialidad e) {
+        // retorno valores ordenados de la consulta
+        List<Medico> lista = new ArrayList<>(this.persistencia.buscarTodos(Medico.class));
+        List<Medico> listaResultante = new ArrayList<>();
+        List<Especialidad> aux = new ArrayList<>();
+        int contar=0;
+        for(int i=0;i<lista.size();i++){
+            aux = lista.get(i).getEspecialidad();
+            //busco si tengo la especialidad que le paso.
+            for(int j=0; j<aux.size();j++){
+                //si la especialidad es distinta a la del parametro sumo
+                if(aux.get(j) != e){
+                    contar++;
+                } else {
+                    contar=0;
+                }
+            }
+            if (contar > 0){
+                listaResultante.add(lista.get(i));
+            }
+        }
+                
+        return listaResultante;
     }
     
     public Persona buscarDoctor(Long id) {
@@ -251,6 +278,9 @@ public class Controlador {
                 //break;
             }
         }
+        //LISTA ORDENADA
+        listaResultante.sort(Comparator.comparing(Cita::getId));
+        
         return listaResultante.toArray();
     }
     
@@ -263,10 +293,15 @@ public class Controlador {
         for(int i=0;i<lista.size();i++){
             aux = lista.get(i);
             if(d.getDay()==aux.getHoraComienzo().getDay()){
-                listaResultante.add(aux);
+                //agrego si esta diponible, si esta ocupado no lo listo
+                if(aux.isDisponible()){
+                    listaResultante.add(aux);
+                }
             }
             
         }
+        
+        
         return listaResultante.toArray();
     }
     
@@ -278,11 +313,15 @@ public class Controlador {
         for(int i=0;i<lista.size();i++){
             aux = lista.get(i);
             if(p==aux.getPaciente()){
-                listaResultante.add(aux);
+            //si esta disponible no deberia aparecer aqui.
+                if(!aux.isDisponible())
+                    listaResultante.add(aux);
             } else {
                 //break;
             }
         }
+        
+        
         return listaResultante.toArray();
         
     }

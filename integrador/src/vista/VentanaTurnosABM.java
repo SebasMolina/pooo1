@@ -179,6 +179,7 @@ public class VentanaTurnosABM extends javax.swing.JFrame {
     private void cerrar(){
         this.previo.setVisible(true);
         this.dispose();
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;

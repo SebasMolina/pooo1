@@ -100,13 +100,15 @@ public class Cita {
     public String toString() {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("HH:mm");
         String ok, aux;
-        if(this.asistencia) {ok = "✓";}
-        else                {ok = "×";}
-        if(this.disponible) {aux = "disponible" ;}
-        else                {aux = "ocupado"    ;}
-        return  formatoFecha.format(horaComienzo) + "-" + 
-                formatoFecha.format(horaTermina) + " " + aux + 
-                " " + ok;
+    /*  
+        if(this.asistencia) {ok = "asistencia ✓";}
+        else                {ok = "asistencia ×";}
+    */
+        if(this.disponible) {aux = "disponible: SI " ;}
+        else                {aux = "disponible: NO"    ;}
+        return  aux + " " + /* ok + */" horario |" +
+                formatoFecha.format(horaComienzo) + "-" + 
+                formatoFecha.format(horaTermina) + "| ";
     }
     
 }

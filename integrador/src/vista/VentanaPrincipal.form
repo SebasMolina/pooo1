@@ -93,7 +93,7 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btn_doctores">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Doctores"/>
+            <Property name="text" type="java.lang.String" value="ABM Doctores"/>
             <Property name="toolTipText" type="java.lang.String" value="abm de doctores"/>
           </Properties>
           <Events>
@@ -102,7 +102,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btn_pacientes">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Pacientes"/>
+            <Property name="text" type="java.lang.String" value="ABM Pacientes"/>
             <Property name="toolTipText" type="java.lang.String" value="abm de pacientes"/>
           </Properties>
           <Events>
