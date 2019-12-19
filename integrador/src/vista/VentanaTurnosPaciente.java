@@ -168,9 +168,22 @@ public class VentanaTurnosPaciente extends javax.swing.JFrame {
         Date dia = new Date();
         aux=(Cita)this.listaTurnos.getSelectedValue();
         if(!this.listaTurnos.isSelectionEmpty()){
-            if(dia.getDate() <=  aux.getHoraComienzo().getDate() ){
-                this.btnConfirmar.setEnabled(true);
-                this.btnCancelar.setEnabled(true);
+            System.out.println(aux.isAsistencia());
+            
+            //System.out.println(dia);
+            //System.out.println(aux.getHoraComienzo());
+            //si el dia de la cita que seleccione es menor
+            if(aux.getHoraComienzo().compareTo(dia)> 0){
+                //System.out.println("comun");
+                deshabilitarBotonConfirmar();
+                habilitarBotonCancelar();
+            } else {
+                //System.out.println("no deberia habilitar los botones");
+                if(aux.isAsistencia())
+                    deshabilitarBotonConfirmar();
+                else
+                    habilitarBotonConfirmar();
+                deshabilitarBotonCancelar();
             }
         }
     }//GEN-LAST:event_listaTurnosMouseClicked
@@ -188,8 +201,8 @@ public class VentanaTurnosPaciente extends javax.swing.JFrame {
         this.lblPaciente.setText("Paciente: "+this.p.getApellidos()+" "+this.p.getNombres());
         this.listaTurnos.setSelectedIndex(-1);
         this.listaTurnos.setListData(this.controlador.listarTurnos(p));
-        this.btnConfirmar.setEnabled(false);
-        this.btnCancelar.setEnabled(false);
+        deshabilitarBotonConfirmar();
+        deshabilitarBotonCancelar();
     }
 
     private void cerrar(){
@@ -205,4 +218,19 @@ public class VentanaTurnosPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel lblPaciente;
     private javax.swing.JList listaTurnos;
     // End of variables declaration//GEN-END:variables
+    private void habilitarBotonConfirmar(){
+        this.btnConfirmar.setEnabled(true);
+    }
+    
+    private void deshabilitarBotonConfirmar(){
+        this.btnConfirmar.setEnabled(false);
+    }
+    
+    private void habilitarBotonCancelar(){
+        this.btnCancelar.setEnabled(true);
+    }
+    
+    private void deshabilitarBotonCancelar(){
+        this.btnCancelar.setEnabled(false);
+    }
 }

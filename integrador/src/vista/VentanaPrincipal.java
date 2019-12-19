@@ -219,6 +219,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 JOptionPane.QUESTION_MESSAGE);
         if (eleccion == JOptionPane.YES_OPTION){
             this.dispose();
+            System.exit( 0 );
+            //cierra todo el programa
         } 
         if (eleccion == JOptionPane.NO_OPTION){
             this.setVisible(true);
