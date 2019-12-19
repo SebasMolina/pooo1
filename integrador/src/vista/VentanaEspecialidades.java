@@ -84,7 +84,7 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(listaEspecialidades);
 
-        lblEspecialidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEspecialidad.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblEspecialidad.setText("Seleccione una especialidad");
 
         btnAgregarDoctor.setText("Agregar Doctor");

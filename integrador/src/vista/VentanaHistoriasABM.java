@@ -77,6 +77,7 @@ public class VentanaHistoriasABM extends javax.swing.JFrame {
         btnLimpiar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        lblNota = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Historia Clinica");
@@ -86,7 +87,7 @@ public class VentanaHistoriasABM extends javax.swing.JFrame {
             }
         });
 
-        lblMedico.setText("Doctor");
+        lblMedico.setText("Seleccione un doctor");
 
         lblDescripcion.setText("Descripción:");
 
@@ -117,6 +118,9 @@ public class VentanaHistoriasABM extends javax.swing.JFrame {
             }
         });
 
+        lblNota.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        lblNota.setText("No se podrá editar después de agregado");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,11 +137,14 @@ public class VentanaHistoriasABM extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnEliminar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAgregar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLimpiar)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnEliminar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAgregar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnLimpiar))
+                            .addComponent(lblNota, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -150,13 +157,15 @@ public class VentanaHistoriasABM extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDescripcion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLimpiar)
                     .addComponent(btnAgregar)
                     .addComponent(btnEliminar))
-                .addGap(34, 34, 34))
+                .addGap(5, 5, 5)
+                .addComponent(lblNota)
+                .addContainerGap())
         );
 
         pack();
@@ -223,6 +232,7 @@ public class VentanaHistoriasABM extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDescripcion;
     private javax.swing.JLabel lblMedico;
+    private javax.swing.JLabel lblNota;
     private javax.swing.JTextArea txtDescripcion;
     // End of variables declaration//GEN-END:variables
 }

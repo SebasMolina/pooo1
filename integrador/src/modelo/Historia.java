@@ -67,7 +67,7 @@ public class Historia {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         //fomato fecha
         //La base de datos NO guarda la hora
-        return formatoFecha.format(fecha) + " --- " + this.medico.getApellidos() + ' ' + this.medico.getNombres();
+        return formatoFecha.format(fecha) + " |Medico: " + this.medico.getApellidos() + ' ' + this.medico.getNombres();
         //fecha + apellido + nombre
     }
     
