@@ -6,8 +6,10 @@
 package vista;
 
 import controlador.Controlador;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JFrame;
+import modelo.Cita;
 
 /**
  *
@@ -22,6 +24,7 @@ public class VentanaRecordatorios extends javax.swing.JFrame {
         this.controlador=c;
         this.previo=p;
         initComponents();
+        limpiar();
     }
 
     /**
@@ -90,10 +93,21 @@ public class VentanaRecordatorios extends javax.swing.JFrame {
      */
     
     private void limpiar(){
-        Date d = new Date();
-        Object[] lista;
-        lista = this.controlador.listarTurnos(d);
-        listaCitas.setListData(lista);
+        ArrayList<Cita> lista= new ArrayList<>();
+        Object[] listaResultante = null;
+        Date diaDeHoy = new Date();
+        Date diaAux =new Date();
+        //por que son 2 semanas.
+        for(int i=0;i<15;i++){
+            diaAux.setDate(diaDeHoy.getDate()+i);
+            
+            listaResultante = this.controlador.listarTurnosRecordatorio(diaAux);
+            for(int j=0;j<listaResultante.length;j++){
+                lista.add((Cita)listaResultante[j]);
+            }
+            
+        }
+        listaCitas.setListData(lista.toArray());
         
     }
 

@@ -334,6 +334,29 @@ public class Controlador {
         return listaResultante.toArray();
         
     }
+    public Object[] listarTurnosRecordatorio(Date d){
+                                                                                                   //Cita_.horaComienzo
+        ArrayList<Cita> lista= new ArrayList<>(this.persistencia.buscarTodosOrdenadosPor(Cita.class, Cita_.medico));
+        ArrayList<Cita> listaResultante = new ArrayList<>();
+        Cita aux;
+        //todas las citas de ese doctor van a estar al principio de la lista.
+        for(int i=0;i<lista.size();i++){
+            aux = lista.get(i);
+            //pregunto si el dia que le pase es igual al de la cita
+            if(d.getDate()== aux.getHoraComienzo().getDate()){
+                //System.out.println(aux);
+                //agrego si esta diponible, si esta ocupado no lo listo
+                //if(aux.isDisponible()){
+                    listaResultante.add(aux);
+                //}
+                
+            }
+            
+        }
+        
+        listaResultante.sort(Comparator.comparing(Cita::getHoraComienzo));
+        return listaResultante.toArray();
+    }
     
     //se usa para crear vacio
     public void agregarTurno(Medico m, Date horaComienzo, Date horaTermina){
@@ -350,6 +373,15 @@ public class Controlador {
         //agrego la cita al perfil del paciente
         c.getPaciente().agregarCitas(c);
         this.persistencia.modificar(c.getPaciente());
+        this.persistencia.confirmarTransaccion();
+    }
+    //
+    public void cancelarTurno(Cita c) {
+        this.persistencia.iniciarTransaccion();
+        c.setAsistencia(false);
+        c.setPaciente(null);//<------------
+        this.persistencia.modificar(c);
+
         this.persistencia.confirmarTransaccion();
     }
 }

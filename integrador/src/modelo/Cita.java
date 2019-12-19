@@ -98,16 +98,17 @@ public class Cita {
     }
     @Override
     public String toString() {
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("E dd-HH:mm");
+        SimpleDateFormat formatoFecha1 = new SimpleDateFormat("HH:mm");
         String asist;
         
         if(this.asistencia) {asist = "asistencia ✓";}
         else                {asist = "asistencia ×";}
     
         
-        return  "horario |" +
+        return  "|" +
                 formatoFecha.format(horaComienzo) + "-" + 
-                formatoFecha.format(horaTermina) + "| " +
+                formatoFecha1.format(horaTermina) + "| " +
                  " " +  asist;
     }
     

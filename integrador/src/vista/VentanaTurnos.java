@@ -310,7 +310,7 @@ public class VentanaTurnos extends javax.swing.JFrame {
         Date a = new Date();
         System.out.println("imprime? crear"+a+"|"+dateSeleccion.getDatoFecha());
         if(dateSeleccion.getDatoFecha().getDay()!=0){
-            if(dateSeleccion.getDatoFecha().compareTo(a) >= 0 ){
+            if(dateSeleccion.getDatoFecha().compareTo(a) > 0 || dateSeleccion.getDatoFecha().getDate()==a.getDate()){
               System.out.println("entro");
                 Calendar dia = Calendar.getInstance();//crear una instancia de calendario se usa para hora empieza
                 Calendar aux = Calendar.getInstance();//instancia para horatermina 
@@ -365,7 +365,9 @@ public class VentanaTurnos extends javax.swing.JFrame {
     
     private void comparacionFecha() {
         //System.out.println("imprime comparacion fecha");
-        if (this.dateSeleccion.getDatoFecha().getDate() < (new Date().getDate()) ||
+        if ((this.dateSeleccion.getDatoFecha().getDate() < (new Date().getDate()) &&
+            (this.dateSeleccion.getDatoFecha().getYear() <= (new Date().getYear()))
+            ) ||
            (this.comboDoctores.getSelectedIndex() == -1 || 
             this.comboEspecialidad.getSelectedIndex() == -1)     
             ){

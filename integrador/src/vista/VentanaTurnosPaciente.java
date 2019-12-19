@@ -6,6 +6,7 @@
 package vista;
 
 import controlador.Controlador;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelo.*;
@@ -137,8 +138,8 @@ public class VentanaTurnosPaciente extends javax.swing.JFrame {
             if (eleccion == JOptionPane.YES_OPTION){
                 c.setDisponible(true);
                 this.p.quitarCitas(c);
-                //c.setPaciente(null);
-                this.controlador.editarTurno(c);
+                //
+                this.controlador.cancelarTurno(c);
             }
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -163,9 +164,14 @@ public class VentanaTurnosPaciente extends javax.swing.JFrame {
 
     private void listaTurnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaTurnosMouseClicked
         // TODO add your handling code here:
+        Cita aux = new Cita();
+        Date dia = new Date();
+        aux=(Cita)this.listaTurnos.getSelectedValue();
         if(!this.listaTurnos.isSelectionEmpty()){
-            this.btnConfirmar.setEnabled(true);
-            this.btnCancelar.setEnabled(true);
+            if(dia.getDate() <=  aux.getHoraComienzo().getDate() ){
+                this.btnConfirmar.setEnabled(true);
+                this.btnCancelar.setEnabled(true);
+            }
         }
     }//GEN-LAST:event_listaTurnosMouseClicked
 

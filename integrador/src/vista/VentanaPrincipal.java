@@ -21,7 +21,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal(Controlador c) {
         this.controlador = c;
         initComponents();
-        this.btn_recordatorio.setEnabled(false);
+        //this.btn_recordatorio.setVisible(false);
     }
 
 //******************************************************************************
@@ -89,7 +89,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btn_recordatorio.setText("Recordatorio Citas");
+        btn_recordatorio.setText("Recordatorio Turnos");
         btn_recordatorio.setToolTipText("mensaje de la cita futura");
         btn_recordatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,7 +127,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addComponent(btn_historias)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_recordatorio)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
