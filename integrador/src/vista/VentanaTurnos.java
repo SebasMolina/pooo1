@@ -232,7 +232,7 @@ public class VentanaTurnos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void dateSeleccionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateSeleccionMouseEntered
-        System.out.println("evento cambio");
+        System.out.println("evento cambio + "+dateSeleccion.getDatoFecha());
         //deshabilitarBotonCrear();
     }//GEN-LAST:event_dateSeleccionMouseEntered
 
@@ -246,12 +246,12 @@ public class VentanaTurnos extends javax.swing.JFrame {
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         
         visualizarTurnos();
-        System.out.println("visualizo turnos");
+        //System.out.println("visualizo turnos");
     }//GEN-LAST:event_formFocusGained
 
     private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
         visualizarTurnos();
-        System.out.println("cambio de estado??");
+        //System.out.println("cambio de estado??");
     }//GEN-LAST:event_formWindowStateChanged
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
@@ -268,7 +268,10 @@ public class VentanaTurnos extends javax.swing.JFrame {
             
         }
         visualizarTurnos();
-        System.out.println("GANO EL FOCO");
+        //System.out.println("GANO EL FOCO");
+        //si es domingo no deberia aparecer el "crear"
+        if(dateSeleccion.getDatoFecha().getDay() ==0)
+            deshabilitarBotonCrear();
     }//GEN-LAST:event_formWindowGainedFocus
 
     
@@ -285,12 +288,14 @@ public class VentanaTurnos extends javax.swing.JFrame {
 
     private void verTurnosDia(Date d){
         //TURNOS POR DIA NO IMPORTA DOCTOR
+        //System.out.println("imprime? verTurnosDia");
         this.listaTurnosDia= this.controlador.listarTurnos(d);
         //no muestro las citas
 //        this.listaTurnos.setListData(this.listaTurnosDia);
     }
     
     private void verTurnosDoctor(Medico m){
+        //System.out.println("imprime? verTurnosDoctor");
         Object[] aux = this.controlador.listarTurnos(m, this.listaTurnosDia);
         this.listaTurnos.setListData(aux);
         if (aux.length==0){
@@ -302,27 +307,32 @@ public class VentanaTurnos extends javax.swing.JFrame {
     
     private void crearTurnos(){
     //ya tengo seleccionado el doctor y voy a crear citas vacias para ese doctor
-    Date a = new Date();
-        if((dateSeleccion.getDatoFecha()).getDay()>= a.getDay()){
-            Calendar dia = Calendar.getInstance();//crear una instancia de calendario se usa para hora empieza
-            Calendar aux = Calendar.getInstance();//instancia para horatermina 
-            dia.setTime(dateSeleccion.getDatoFecha()); //dia que seleccione en el combo
-
-            dia.set(Calendar.HOUR_OF_DAY,this.cita.getMedico().getHorarioInicio().getHours());
-            dia.set(Calendar.MINUTE,this.cita.getMedico().getHorarioInicio().getMinutes());
-            aux.setTime(dateSeleccion.getDatoFecha()); //dia que seleccione en el combo
-            aux.set(Calendar.HOUR_OF_DAY,this.cita.getMedico().getHorarioInicio().getHours());
-            aux.set(Calendar.MINUTE,this.cita.getMedico().getHorarioInicio().getMinutes()+this.cita.getMedico().getTiempoTurno());
-            int rango = (this.cita.getMedico().getHorarioFinal().getHours()
-                        -this.cita.getMedico().getHorarioInicio().getHours())*60;
-            int cantTurnosDia = rango/this.cita.getMedico().getTiempoTurno();
-            for (int i=1;i<=cantTurnosDia;i++){
-                this.controlador.agregarTurno(this.cita.getMedico(), dia.getTime(), aux.getTime());
-                aux.add(Calendar.MINUTE, this.cita.getMedico().getTiempoTurno());
-                dia.add(Calendar.MINUTE, this.cita.getMedico().getTiempoTurno());
+        Date a = new Date();
+        System.out.println("imprime? crear"+a+"|"+dateSeleccion.getDatoFecha());
+        if(dateSeleccion.getDatoFecha().getDay()!=0){
+            if(dateSeleccion.getDatoFecha().compareTo(a) >= 0 ){
+              System.out.println("entro");
+                Calendar dia = Calendar.getInstance();//crear una instancia de calendario se usa para hora empieza
+                Calendar aux = Calendar.getInstance();//instancia para horatermina 
+                dia.setTime(dateSeleccion.getDatoFecha()); //dia que seleccione en el combo
+            //  System.out.println(dateSeleccion.getDatoFecha());
+                dia.set(Calendar.HOUR_OF_DAY,this.cita.getMedico().getHorarioInicio().getHours());
+                dia.set(Calendar.MINUTE,this.cita.getMedico().getHorarioInicio().getMinutes());
+                aux.setTime(dateSeleccion.getDatoFecha()); //dia que seleccione en el combo
+                aux.set(Calendar.HOUR_OF_DAY,this.cita.getMedico().getHorarioInicio().getHours());
+                aux.set(Calendar.MINUTE,this.cita.getMedico().getHorarioInicio().getMinutes()+this.cita.getMedico().getTiempoTurno());
+                int rango = (this.cita.getMedico().getHorarioFinal().getHours()
+                            -this.cita.getMedico().getHorarioInicio().getHours())*60;
+                int cantTurnosDia = rango/this.cita.getMedico().getTiempoTurno();
+                for (int i=1;i<=cantTurnosDia;i++){
+                    this.controlador.agregarTurno(this.cita.getMedico(), dia.getTime(), aux.getTime());
+                    aux.add(Calendar.MINUTE, this.cita.getMedico().getTiempoTurno());
+                    dia.add(Calendar.MINUTE, this.cita.getMedico().getTiempoTurno());
+                }
+            //se pueden crear duplicados
             }
-        //se pueden crear duplicados
         }
+        
     }
 
     
@@ -354,6 +364,7 @@ public class VentanaTurnos extends javax.swing.JFrame {
     }
     
     private void comparacionFecha() {
+        //System.out.println("imprime comparacion fecha");
         if (this.dateSeleccion.getDatoFecha().getDate() < (new Date().getDate()) ||
            (this.comboDoctores.getSelectedIndex() == -1 || 
             this.comboEspecialidad.getSelectedIndex() == -1)     
@@ -388,7 +399,9 @@ public class VentanaTurnos extends javax.swing.JFrame {
     public void visualizarTurnos() {
         Medico m = (Medico)comboDoctores.getSelectedItem();
         habilitarBotonSeleccionarTurno();
+        
         verTurnosDia(dateSeleccion.getDatoFecha());
+        System.out.println(dateSeleccion.getDatoFecha());
         verTurnosDoctor(m);
     }
 }

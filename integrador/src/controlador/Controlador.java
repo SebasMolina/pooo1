@@ -299,7 +299,9 @@ public class Controlador {
         //todas las citas de ese doctor van a estar al principio de la lista.
         for(int i=0;i<lista.size();i++){
             aux = lista.get(i);
-            if(d.getDay()==aux.getHoraComienzo().getDay()){
+            //pregunto si el dia que le pase es igual al de la cita
+            if(d.getDate()== aux.getHoraComienzo().getDate()){
+                System.out.println(d.getDate()+" = "+aux.getHoraComienzo().getDate());
                 //agrego si esta diponible, si esta ocupado no lo listo
                 if(aux.isDisponible()){
                     listaResultante.add(aux);
