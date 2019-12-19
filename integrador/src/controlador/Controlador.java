@@ -209,7 +209,11 @@ public class Controlador {
     
     public List listarEspecialidades() {
         // retorno valores ordenados de la consulta
-        return this.persistencia.buscarTodos(Especialidad.class);
+        ArrayList<Especialidad> listaResultante= new ArrayList<>(this.persistencia.buscarTodos(Especialidad.class));
+        listaResultante.sort(Comparator.comparing(Especialidad::getNombre));
+        
+        return listaResultante;
+        
     }
     
     public void agregarEspecialidades(String nombres) {

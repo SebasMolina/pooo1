@@ -6,6 +6,7 @@
 package vista;
 
 import controlador.Controlador;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +45,7 @@ public class VentanaTurnos extends javax.swing.JFrame {
         lblTitulo = new javax.swing.JLabel();
         btnCrear = new javax.swing.JButton();
         lblDuracionTurno = new javax.swing.JLabel();
+        lblHorarioTurno = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Turnos");
@@ -123,6 +125,8 @@ public class VentanaTurnos extends javax.swing.JFrame {
 
         lblDuracionTurno.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
+        lblHorarioTurno.setPreferredSize(new java.awt.Dimension(49, 17));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,12 +142,13 @@ public class VentanaTurnos extends javax.swing.JFrame {
                     .addComponent(btnSeleccionarTurno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCrear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblEspecialidad)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(lblDoctores)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblDuracionTurno)))
+                        .addComponent(lblDuracionTurno))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblEspecialidad)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lblHorarioTurno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -164,6 +169,8 @@ public class VentanaTurnos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboDoctores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblHorarioTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addComponent(btnCrear)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -183,7 +190,7 @@ public class VentanaTurnos extends javax.swing.JFrame {
     private void btnSeleccionarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarTurnoActionPerformed
         // TODO add your handling code here:
         this.cita = (Cita)listaTurnos.getSelectedValue();
-        VentanaTurnosABM vcABM = new VentanaTurnosABM(this.controlador, this, this.cita);
+        VentanaTurnosABM vcABM = new VentanaTurnosABM(this.controlador, this, this.cita,0);
         this.setVisible(true);
         vcABM.setLocationRelativeTo(null);
         vcABM.setResizable(false);
@@ -210,6 +217,7 @@ public class VentanaTurnos extends javax.swing.JFrame {
         Medico m = (Medico) comboDoctores.getSelectedItem();
         if (m!=null){
             this.lblDuracionTurno.setText("Duración turno: " + m.getTiempoTurno() + " min");
+            mostrarHorarioTurno();
             this.cita.setMedico(m);
             verTurnosDoctor(m);
         } else {
@@ -308,10 +316,10 @@ public class VentanaTurnos extends javax.swing.JFrame {
     private void crearTurnos(){
     //ya tengo seleccionado el doctor y voy a crear citas vacias para ese doctor
         Date a = new Date();
-        System.out.println("imprime? crear"+a+"|"+dateSeleccion.getDatoFecha());
+        //System.out.println("imprime? crear"+a+"|"+dateSeleccion.getDatoFecha());
         if(dateSeleccion.getDatoFecha().getDay()!=0){
             if(dateSeleccion.getDatoFecha().compareTo(a) > 0 || dateSeleccion.getDatoFecha().getDate()==a.getDate()){
-              System.out.println("entro");
+                //System.out.println("entro");
                 Calendar dia = Calendar.getInstance();//crear una instancia de calendario se usa para hora empieza
                 Calendar aux = Calendar.getInstance();//instancia para horatermina 
                 dia.setTime(dateSeleccion.getDatoFecha()); //dia que seleccione en el combo
@@ -346,6 +354,7 @@ public class VentanaTurnos extends javax.swing.JFrame {
     private javax.swing.JLabel lblDoctores;
     private javax.swing.JLabel lblDuracionTurno;
     private javax.swing.JLabel lblEspecialidad;
+    private javax.swing.JLabel lblHorarioTurno;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JList listaTurnos;
     // End of variables declaration//GEN-END:variables
@@ -403,7 +412,19 @@ public class VentanaTurnos extends javax.swing.JFrame {
         habilitarBotonSeleccionarTurno();
         
         verTurnosDia(dateSeleccion.getDatoFecha());
-        System.out.println(dateSeleccion.getDatoFecha());
+        //System.out.println(dateSeleccion.getDatoFecha());
         verTurnosDoctor(m);
+        if(comboDoctores.getSelectedIndex()==-1){
+            lblHorarioTurno.setText("");
+        }
+    }
+    
+    private void mostrarHorarioTurno(){
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("HH:mm");
+        Medico m = (Medico) comboDoctores.getSelectedItem();
+        if (comboDoctores.getSelectedIndex()!= -1){
+            lblHorarioTurno.setText("Turno: "+ formatoFecha.format(m.getHorarioInicio())
+                + " - " + formatoFecha.format(m.getHorarioFinal()));
+        }
     }
 }

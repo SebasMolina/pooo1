@@ -19,6 +19,7 @@ public class VentanaRecordatorios extends javax.swing.JFrame {
 
     private final Controlador controlador;
     private final JFrame previo;
+    private Cita cita;
     
     public VentanaRecordatorios(Controlador c, JFrame p) {
         this.controlador=c;
@@ -85,7 +86,12 @@ public class VentanaRecordatorios extends javax.swing.JFrame {
 
     private void btnVerInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerInfoActionPerformed
         // TODO add your handling code here:
-        
+        this.cita = (Cita)listaCitas.getSelectedValue();
+        VentanaTurnosABM vcABM = new VentanaTurnosABM(this.controlador, this, this.cita,1);
+        this.setVisible(false);
+        vcABM.setLocationRelativeTo(null);
+        vcABM.setResizable(false);
+        vcABM.setVisible(true);
     }//GEN-LAST:event_btnVerInfoActionPerformed
 
     /**

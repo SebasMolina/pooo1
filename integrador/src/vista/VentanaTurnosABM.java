@@ -6,6 +6,7 @@
 package vista;
 
 import controlador.Controlador;
+import java.text.SimpleDateFormat;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -25,15 +26,15 @@ public class VentanaTurnosABM extends javax.swing.JFrame {
         initComponents();
         this.controlador = c;
         this.previo = p;
-        limpiar();
+        limpiar(1);
     }
     
-    public VentanaTurnosABM(Controlador c, JFrame p, Cita ci) {
+    public VentanaTurnosABM(Controlador c, JFrame p, Cita ci, int i) {
         initComponents();
         this.controlador = c;
         this.previo = p;
         this.cita = ci;
-        limpiar();
+        limpiar(i);
     }
 
     @SuppressWarnings("unchecked")
@@ -50,6 +51,8 @@ public class VentanaTurnosABM extends javax.swing.JFrame {
         lblTermina = new javax.swing.JLabel();
         lblHoraComienza = new javax.swing.JLabel();
         lblHoraTermina = new javax.swing.JLabel();
+        btnConfirmar = new javax.swing.JButton();
+        lblContacto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Detalle Turno");
@@ -81,6 +84,15 @@ public class VentanaTurnosABM extends javax.swing.JFrame {
 
         lblHoraTermina.setText("08:30");
 
+        btnConfirmar.setText("Confirmar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
+
+        lblContacto.setPreferredSize(new java.awt.Dimension(72, 17));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,6 +100,7 @@ public class VentanaTurnosABM extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblContacto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,7 +121,10 @@ public class VentanaTurnosABM extends javax.swing.JFrame {
                                 .addComponent(lblTermina)
                                 .addGap(18, 18, 18)
                                 .addComponent(lblHoraTermina))
-                            .addComponent(btnGuardar, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnGuardar)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -121,6 +137,8 @@ public class VentanaTurnosABM extends javax.swing.JFrame {
                     .addComponent(lblPaciente)
                     .addComponent(comboPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblMedico))
@@ -131,7 +149,9 @@ public class VentanaTurnosABM extends javax.swing.JFrame {
                     .addComponent(lblHoraComienza)
                     .addComponent(lblHoraTermina))
                 .addGap(18, 18, 18)
-                .addComponent(btnGuardar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardar)
+                    .addComponent(btnConfirmar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -160,19 +180,42 @@ public class VentanaTurnosABM extends javax.swing.JFrame {
         cerrar();
     }//GEN-LAST:event_formWindowClosing
 
-    private void limpiar(){
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        // TODO add your handling code here:
+        cerrar();
+    }//GEN-LAST:event_btnConfirmarActionPerformed
+
+    private void limpiar(int i){
+        System.out.println(cita.getPaciente());
+        //SI no tiene pacientes muestro la lista
         
-        DefaultComboBoxModel modeloComboPacientes = new DefaultComboBoxModel(this.controlador.listarPacientes().toArray());
-        this.comboPaciente.setModel(modeloComboPacientes);
+        if(cita.getPaciente() == null ){
+            //entra si el nombre de la cita del paciente es vacio
+            //o sea no tiene
+            //System.out.println("entro");
+            if(i==0){
+                DefaultComboBoxModel modeloComboPacientes = new DefaultComboBoxModel(this.controlador.listarPacientes().toArray());
+                this.comboPaciente.setModel(modeloComboPacientes);
+                this.comboPaciente.setSelectedIndex(-1);
+                this.btnConfirmar.setEnabled(false);
+            } else {
+                this.btnGuardar.setEnabled(false);
+            }
+            
+        } else {
+            this.comboPaciente.addItem(cita.getPaciente());
+            this.lblContacto.setText("Tel: "+ cita.getPaciente().getTelefono()+" o "+
+                    "Mail: "+ cita.getPaciente().getMail());
+            this.btnGuardar.setEnabled(false);
+        }
+        //
         this.comboMedico.addItem(this.cita.getMedico());
-        this.comboPaciente.setSelectedIndex(-1);
+        //
         //las horas saco de la lista que seleccione
         //formateo la hora para que quede lindo
-        this.lblHoraComienza.setText(String.valueOf(this.cita.getHoraComienzo().getHours())+
-        ":"+String.valueOf(this.cita.getHoraComienzo().getMinutes()));
-        this.lblHoraTermina.setText(String.valueOf(this.cita.getHoraTermina().getHours())+
-        ":"+String.valueOf(this.cita.getHoraTermina().getMinutes()));
-        
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("HH:mm");
+        this.lblHoraComienza.setText(formatoFecha.format(this.cita.getHoraComienzo()));
+        this.lblHoraTermina.setText(formatoFecha.format(this.cita.getHoraTermina()));
     }
 
     //cerrar ventana
@@ -182,10 +225,12 @@ public class VentanaTurnosABM extends javax.swing.JFrame {
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox comboMedico;
     private javax.swing.JComboBox comboPaciente;
     private javax.swing.JLabel lblComienza;
+    private javax.swing.JLabel lblContacto;
     private javax.swing.JLabel lblHoraComienza;
     private javax.swing.JLabel lblHoraTermina;
     private javax.swing.JLabel lblMedico;
